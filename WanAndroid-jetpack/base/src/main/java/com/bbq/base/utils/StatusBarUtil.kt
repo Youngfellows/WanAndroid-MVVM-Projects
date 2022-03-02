@@ -18,8 +18,13 @@ import androidx.annotation.RequiresApi
 import java.lang.ref.WeakReference
 import java.util.regex.Pattern
 
+/**
+ * 状态栏工具
+ */
 class StatusBarUtil {
+
     companion object {
+
         private val DEFAULT_ALPHA = 0
 
         /**

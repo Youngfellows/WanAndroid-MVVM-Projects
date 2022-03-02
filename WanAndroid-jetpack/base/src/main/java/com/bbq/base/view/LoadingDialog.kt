@@ -8,16 +8,23 @@ import android.view.animation.RotateAnimation
 import android.widget.ImageView
 import com.bbq.base.R
 
-class LoadingDialog(context: Context) : Dialog(
-    context,
-    R.style.LoadingDialog
-) {
+/**
+ * 加载对话框
+ *
+ * @constructor
+ * TODO
+ *
+ * @param context
+ */
+class LoadingDialog(context: Context) : Dialog(context, R.style.LoadingDialog) {
 
     private var loadingDialog: LoadingDialog? = null
 
     init {
         setContentView(R.layout.layout_loading_view)
         val imageView: ImageView = findViewById(R.id.iv_image)
+
+        //旋转动画
         val animation: Animation = RotateAnimation(
             0f,
             360f,
@@ -32,6 +39,10 @@ class LoadingDialog(context: Context) : Dialog(
         imageView.startAnimation(animation)
     }
 
+    /**
+     * 显示对话框
+     * @param context
+     */
     fun showDialog(context: Context) {
         if (context is Activity) {
             if (context.isFinishing) {
@@ -45,6 +56,9 @@ class LoadingDialog(context: Context) : Dialog(
         loadingDialog?.show()
     }
 
+    /**
+     * 对话框消失
+     */
     fun dismissDialog() {
         loadingDialog?.dismiss()
     }

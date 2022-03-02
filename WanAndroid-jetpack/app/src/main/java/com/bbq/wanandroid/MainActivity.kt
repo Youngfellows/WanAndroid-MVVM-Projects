@@ -14,10 +14,13 @@ import com.bbq.navigation.ui.NavigationFragment
 import com.bbq.user.ui.UserFragment
 import com.bbq.wanandroid.databinding.ActivityMainBinding
 
-
+/**
+ * MainActivity主界面
+ */
 class MainActivity : BaseVMActivity<ActivityMainBinding>() {
 
     private var navController: NavController? = null
+
     override fun getLayoutId(): Int {
         return R.layout.activity_main
     }
@@ -29,20 +32,28 @@ class MainActivity : BaseVMActivity<ActivityMainBinding>() {
 
     }
 
+    /**
+     * 设置底部导航栏页面
+     */
     private fun setupBottomNavigationBar() {
         var navHostFragment: NavHostFragment =
             supportFragmentManager.findFragmentById(R.id.fragment_nav) as NavHostFragment
         navController = navHostFragment.navController
+
         //创建自定义的Fragment导航器
         //创建自定义的Fragment导航器
         val fragmentNavigator =
             FixFragmentNavigator(this, navHostFragment.childFragmentManager, navHostFragment.id)
+
         //获取导航器提供者
         val provider = navController!!.navigatorProvider
+
         //把自定义的Fragment导航器添加进去
         provider.addNavigator(fragmentNavigator)
+
         //手动创建导航图
         val navGraph = initNavGraph(provider, fragmentNavigator)
+
         //设置导航图
         navController!!.setGraph(navGraph)
 

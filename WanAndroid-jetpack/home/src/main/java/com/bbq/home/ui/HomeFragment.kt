@@ -33,6 +33,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class HomeFragment : BaseVMFragment<FragmentHomeBinding>() {
+
     private val TAG = "HomeFragment"
 
     private lateinit var bannerHelper: SimpleBannerHelper
