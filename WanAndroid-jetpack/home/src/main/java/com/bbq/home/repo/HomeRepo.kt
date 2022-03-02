@@ -10,6 +10,10 @@ import com.bbq.home.bean.HotKeyBean
 import com.bbq.net.model.BasePagingResult
 import com.bbq.net.model.ResultState
 
+/**
+ * 主页的Repository
+ * @property homeApi
+ */
 class HomeRepo(private val homeApi: HomeApi) : BaseRepository() {
 
     suspend fun getHotKey(): ResultState<MutableList<HotKeyBean>> {

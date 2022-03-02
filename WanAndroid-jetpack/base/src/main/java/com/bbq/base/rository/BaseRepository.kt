@@ -37,7 +37,7 @@ open class BaseRepository {
     /**
      * 处理返回结果
      * @param T 泛型参数
-     * @param response 返回结果
+     * @param response 响应结果
      * @param successBlock 成功回调
      * @param errorBlock 失败回调
      * @return
