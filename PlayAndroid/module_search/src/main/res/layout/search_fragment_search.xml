@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:binding="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.czl.module_search.viewmodel.SearchViewModel" />
+
+    </data>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/md_red_350">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/dp_8"
+                android:paddingTop="@dimen/dp_14"
+                android:paddingBottom="@dimen/dp_14"
+                app:srcCompat="@drawable/ic_arrow_back_white_24dp"
+                binding:isVisible="@{viewModel.backVisibility}"
+                binding:onClickCommand="@{viewModel.onSearchLeftCommand}" />
+
+
+            <com.czl.lib_base.widget.MaterialSearchBar
+                android:id="@+id/search_bar"
+                style="@style/SearchBarStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="@dimen/dp_6"
+                app:mt_backIconUseTint="true"
+                app:mt_navIconEnabled="false"
+                app:mt_roundedSearchBarEnabled="true"
+                app:mt_searchBarColor="@color/color_default_bg_deep"
+                app:mt_speechMode="false"
+                binding:onSearchConfirmCommand="@{viewModel.onSearchConfirmCommand}"
+                binding:onSearchStateCommand="@{viewModel.onSearchStateCommand}"
+                binding:searchPlaceHolder="@{viewModel.searchPlaceHolder}" />
+
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <include
+            android:id="@+id/include_ry"
+            layout="@layout/common_recyclerview"
+            app:viewModel="@{viewModel}" />
+
+        <ViewStub
+            android:id="@+id/search_stub"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout="@layout/search_recommend" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</layout>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="project"
+            type="com.longjunhao.wanjetpack.data.ApiArticle" />
+
+    </data>
+
+    <com.longjunhao.wanjetpack.views.MaskedCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/card_side_margin"
+        android:layout_marginEnd="@dimen/card_side_margin"
+        android:layout_marginBottom="@dimen/card_bottom_margin"
+        app:webViewFromArticle="@{project}"
+        app:cardElevation="@dimen/card_elevation"
+        app:cardPreventCornerOverlap="false">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="4dp">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/project_pic"
+                android:layout_width="60dp"
+                android:layout_height="@dimen/plant_item_image_height"
+                android:scaleType="centerCrop"
+                app:imageFromUrl="@{project.envelopePic}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/favorite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:src="@{project.collect ? @drawable/ic_favorite_24 : @drawable/ic_favorite_border_24}"
+                app:layout_constraintTop_toTopOf="@id/project_pic"
+                app:layout_constraintEnd_toStartOf="@id/project_pic" />
+
+            <TextView
+                android:id="@+id/project_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:scaleType="centerCrop"
+                android:text="@{project.title}"
+                android:textAppearance="?attr/textAppearanceListItem"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toStartOf="@id/favorite"
+                app:layout_constraintTop_toTopOf="@id/project_pic"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <TextView
+                android:id="@+id/project_desc"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@{project.desc}"
+                android:textAppearance="?attr/textAppearanceListItemSecondary"
+                android:textColor="@android:color/secondary_text_dark"
+                android:lines="3"
+                android:ellipsize="end"
+                app:layout_constraintStart_toStartOf="@id/project_title"
+                app:layout_constraintEnd_toEndOf="@id/project_title"
+                app:layout_constraintTop_toBottomOf="@id/project_title" />
+
+            <TextView
+                android:id="@+id/project_author"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@{project.author}"
+                android:textAppearance="?attr/textAppearanceListItemSecondary"
+                android:textColor="@android:color/secondary_text_dark"
+                android:gravity="center_horizontal"
+                app:layout_constraintStart_toStartOf="@id/project_title"
+                app:layout_constraintTop_toBottomOf="@id/project_desc"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <TextView
+                android:id="@+id/project_date"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@{project.niceDate}"
+                android:textAppearance="?attr/textAppearanceListItemSecondary"
+                android:textColor="@android:color/secondary_text_dark"
+                android:gravity="center_horizontal"
+                app:layout_constraintTop_toTopOf="@id/project_author"
+                app:layout_constraintEnd_toStartOf="@id/project_pic" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.longjunhao.wanjetpack.views.MaskedCardView>
+</layout>

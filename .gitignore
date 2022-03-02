@@ -83,3 +83,6 @@ lint/generated/
 lint/outputs/
 lint/tmp/
 # lint/reports/
+PlayAndroid/.idea/
+WanAndroid-jetpack/.idea/
+WanJetpack/.idea/

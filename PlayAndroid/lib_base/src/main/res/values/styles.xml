@@ -1,0 +1,101 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="android:textAllCaps">false</item>
+<!--        <item name="android:windowAnimationStyle">@style/Animation_Activity</item>-->
+        <item name="android:windowContentTransitions">true</item>
+        <item name="colorPrimary">@color/mColorPrimary</item>
+        <item name="colorPrimaryDark">@color/mColorPrimaryDark</item>
+        <item name="colorAccent">@color/mColorAccent</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <!--取消水波纹效果-->
+        <!--        <item name="android:colorControlHighlight">@android:color/transparent</item>-->
+    </style>
+
+    <!--Toolbar-->
+    <style name="actionBarStyle" parent="Widget.AppCompat.Toolbar">
+        <item name="contentInsetStart">0dp</item>
+        <item name="contentInsetEnd">0dp</item>
+    </style>
+    <!--启动页-->
+    <style name="AppTheme.Launcher" parent="AppTheme">
+        <item name="android:windowAnimationStyle">@style/Animation_Splash</item>
+    </style>
+
+    <style name="Animation_Splash" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/anim_scale_in</item>
+    </style>
+    <!--全局活动跳转动画-->
+    <style name="Animation_Activity" parent="@android:style/Animation.Activity">
+        <!-- 进入一个新的Activity的时候，A->B B进入动画 -->
+        <item name="android:activityOpenEnterAnimation">@anim/v_fragment_enter</item>
+        <!-- 进入一个新的Activity的时候，A->B A退出动画 -->
+        <!--        <item name="android:activityOpenExitAnimation">@anim/slide_right_out</item>-->
+        <!-- 退出一个Activity的时候，B返回到A A进入动画 -->
+        <!--        <item name="android:activityCloseEnterAnimation">@anim/slide_left_in</item>-->
+        <!-- 退出一个Activity的时候，B返回到A B退出动画 -->
+        <item name="android:activityCloseExitAnimation">@anim/v_fragment_exit</item>
+    </style>
+
+    <style name="TextInputWhiteStyle" parent="AppTheme">
+        <!--输入框提示字体色-->
+        <item name="android:textColorHint">#ffffff</item>
+        <!--输入框下划线默认颜色-->
+        <!--        <item name="colorControlNormal">@color/white</item>-->
+        <!--输入框下划线选中状态色-->
+        <item name="colorControlActivated">#ffffff</item>
+        <!--输入框光标颜色-->
+        <item name="colorControlHighlight">#ffffff</item>
+    </style>
+
+    <style name="TextInputThemeStyle" parent="AppTheme">
+        <!--输入框提示字体色-->
+        <!--        <item name="android:textColorHint">@color/white</item>-->
+        <!--输入框下划线默认颜色-->
+        <item name="colorControlNormal">@color/md_theme_red</item>
+        <!--输入框下划线选中状态色-->
+        <item name="colorControlActivated">@color/md_theme_red</item>
+        <!--输入框光标颜色-->
+        <item name="colorControlHighlight">@color/md_theme_red</item>
+    </style>
+
+    <!-- 筛选选择框自定义主题 -->
+    <style name="select_style">
+        <item name="android:layout_width">60dip</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">4dip</item>
+        <item name="android:layout_marginRight">4dip</item>
+        <item name="android:paddingTop">4dip</item>
+        <item name="android:paddingBottom">4dip</item>
+        <item name="android:background">@drawable/tag_tv_selector</item>
+        <item name="android:button">@null</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">@color/tag_text_color_selector</item>
+    </style>
+
+    <style name="SearchBarStyle" parent="MaterialSearchBarLight">
+        <item name="mt_searchBarColor">@color/color_default_bg</item>
+        <item name="mt_dividerColor">@color/searchBarDividerColor</item>
+        <item name="mt_navIconTint">@color/black</item>
+        <item name="mt_searchIconTint">@color/black</item>
+        <item name="mt_clearIconTint">@color/black</item>
+        <item name="mt_menuIconTint">@color/searchBarMenuIconTintColor</item>
+        <item name="mt_backIconTint">@color/black</item>
+        <item name="mt_textColor">@color/black</item>
+        <item name="mt_hintColor">@color/searchPlaceholderColor</item>
+        <item name="mt_placeholderColor">@color/searchPlaceholderColor</item>
+        <item name="mt_backIconDrawable">@drawable/ic_back_black_24dp</item>
+        <item name="mt_hint">搜索关键词...</item>
+    </style>
+
+    <style name="TabLayoutTextStyle" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">@dimen/sp_12</item>
+        <item name="textAllCaps">false</item>
+    </style>
+
+    <style name="SwitchStyleClickable">
+        <item name="colorControlActivated">@color/md_theme_red</item>
+    </style>
+</resources>

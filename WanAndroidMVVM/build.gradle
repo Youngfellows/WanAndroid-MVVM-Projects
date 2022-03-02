@@ -1,0 +1,30 @@
+import com.quyunshuo.wanandroid.buildsrc.*
+
+buildscript {
+    repositories {
+        google()
+        jcenter()
+        mavenCentral()
+        maven { url 'https://maven.google.com' }
+        maven { url 'https://www.jitpack.io' }
+    }
+    dependencies {
+        classpath ProjectPluginManager.AndroidToolsPlugin
+        classpath ProjectPluginManager.KotlinPlugin
+        classpath ProjectPluginManager.ARouterRegister
+        classpath ProjectPluginManager.HiltPlugin
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+        mavenCentral()
+        maven { url 'https://www.jitpack.io' }
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}

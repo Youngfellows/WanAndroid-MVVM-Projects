@@ -1,0 +1,146 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+//apply from: "../module.build.gradle"
+android {
+    compileSdkVersion rootProject.ext.android.compileSdkVersion
+    buildToolsVersion rootProject.ext.android.buildToolsVersion
+    defaultConfig {
+        minSdkVersion rootProject.ext.android.minSdkVersion
+        targetSdkVersion rootProject.ext.android.targetSdkVersion
+        versionCode rootProject.ext.android.versionCode
+        versionName rootProject.ext.android.versionName
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        //阿里路由框架配置
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [AROUTER_MODULE_NAME: project.getName()]
+//                includeCompileClasspath = true
+            }
+        }
+//        ndk {
+//            abiFilters 'armeabi-v7a'
+//        }
+//        kapt {
+//            arguments {
+//                arg("AROUTER_MODULE_NAME", project.getName())
+//            }
+//        }
+    }
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+            if (isBuildModule.toBoolean()) {
+                //独立运行
+                manifest.srcFile 'src/main/alone/AndroidManifest.xml'
+            } else {
+                //合并到宿主
+                manifest.srcFile 'src/main/AndroidManifest.xml'
+                resources {
+                    //正式版本时，排除alone文件夹下所有调试文件
+                    exclude 'src/main/alone/*'
+                }
+            }
+        }
+    }
+    buildTypes {
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    buildFeatures {
+        dataBinding true
+    }
+}
+dependencies {
+    api fileTree(dir: "libs", include: ["*.jar"])
+
+    api rootProject.ext.androidx["design"]
+    api rootProject.ext.androidx["viewpager2"]
+    api rootProject.ext.androidx["constraintlayout"]
+    api rootProject.ext.androidx["appcompat"]
+    api rootProject.ext.androidx["junit"]
+    api rootProject.ext.androidx["runner"]
+    api rootProject.ext.androidx["espresso-core"]
+    api rootProject.ext.androidx["lifecycle-extensions"]
+    kapt rootProject.ext.androidx["lifecycle-compiler"]
+    api rootProject.ext.androidx["multidex"]
+    api rootProject.ext.androidx["kotlin_lib"]
+    api rootProject.ext.androidx["kotlin_core"]
+
+    //rx管理View的生命周期
+    api rootProject.ext.dependencies["rxlifecycle"]
+    api rootProject.ext.dependencies["rxlifecycle-components"]
+    //rxbinding
+    api rootProject.ext.dependencies["rxbinding"]
+    //network
+    api rootProject.ext.dependencies["okhttp"]
+    api rootProject.ext.dependencies["retrofit"]
+    api rootProject.ext.dependencies["converter-gson"]
+    api rootProject.ext.dependencies["adapter-rxjava"]
+    //json解析
+    api rootProject.ext.dependencies["gson"]
+    //glide图片加载库
+    api rootProject.ext.dependencies["glide"]
+    api rootProject.ext.dependencies["glide-transfer"]
+    kapt rootProject.ext.dependencies["glide-compiler"]
+
+    api rootProject.ext.dependencies["toolbar"]
+
+    api rootProject.ext.dependencies["navigation"]
+    api rootProject.ext.dependencies["refresh-header"]
+    api rootProject.ext.dependencies["refresh-footer-ball"]
+    api rootProject.ext.dependencies["refresh-footer-classic"]
+    api rootProject.ext.dependencies["refresh"]
+    api rootProject.ext.dependencies["searchview"]
+
+    api rootProject.ext.dependencies["arouter_api"]
+    api rootProject.ext.dependencies["arouter_compiler"]
+    api rootProject.ext.dependencies["koin_core"]
+    api rootProject.ext.dependencies["koin_java"]
+    api rootProject.ext.dependencies["utils"]
+    api rootProject.ext.dependencies["mmkv"]
+    api rootProject.ext.dependencies["livebus"]
+    api rootProject.ext.dependencies["fragmentationx"]
+    api rootProject.ext.dependencies["swipeback"]
+    api rootProject.ext.dependencies["permissionx"]
+    api rootProject.ext.dependencies["banner"]
+    api rootProject.ext.dependencies["toast"]
+    api rootProject.ext.dependencies["webview"]
+
+    api rootProject.ext.dependencies["autosize"]
+    api rootProject.ext.dependencies["xpopup"]
+    api rootProject.ext.dependencies["shadowlayout"]
+    api rootProject.ext.dependencies["skeleton"]
+    api rootProject.ext.dependencies["shimmer-recyclerView"]
+    api rootProject.ext.dependencies["litepal"]
+    api rootProject.ext.dependencies["adapter-helper"]
+    api rootProject.ext.dependencies["qrcode"]
+    api rootProject.ext.dependencies["lottie"]
+    api rootProject.ext.dependencies["swipe_menu"]
+    api rootProject.ext.dependencies["round_imageview"]
+    api rootProject.ext.dependencies["loadsir"]
+    api rootProject.ext.dependencies["flexbox"]
+    api rootProject.ext.dependencies["linkage-recyclerview"]
+    api rootProject.ext.dependencies["dialog-datetime"]
+    api rootProject.ext.dependencies["dialog-lifecycle"]
+    api rootProject.ext.dependencies["matisse"]
+    api rootProject.ext.dependencies["loadingview"]
+    api rootProject.ext.dependencies["pgy_sdk"]
+
+    debugApi rootProject.ext.dependencies["leakcanary"]
+//    debugApi rootProject.ext.dependencies["dokitx"]
+
+}

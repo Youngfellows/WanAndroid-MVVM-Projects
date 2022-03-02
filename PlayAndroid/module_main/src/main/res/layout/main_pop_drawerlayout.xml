@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:attrs="http://schemas.android.com/apk/res-auto"
+    xmlns:binding="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.text.TextUtils"/>
+        <variable
+            name="user"
+            type="com.czl.lib_base.data.bean.UserBean" />
+        <variable
+            name="pop"
+            type="com.czl.module_main.widget.HomeDrawerPop" />
+    </data>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/ll_drawer"
+        android:layout_width="240dp"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:orientation="vertical"
+            android:layout_marginBottom="@dimen/dp_20">
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/iv_icon"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="60dp"
+                android:scaleType="fitCenter"
+                android:src="@mipmap/ic_launcher"
+                attrs:riv_oval="true"/>
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:maxLines="2"
+                android:layout_margin="@dimen/dp_10"
+                android:textSize="@dimen/sp_16"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:ellipsize="end"
+                binding:text="@{TextUtils.isEmpty(user.publicName)?`未登录`:user.publicName}"
+                binding:onClickCommand="@{pop.onShowLoginPopClick}"/>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <com.czl.lib_base.widget.CommonItemSettingView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            attrs:mIcon="@drawable/ic_scan"
+            attrs:mRight="false"
+            attrs:mTitle="扫一扫"
+            binding:onClickCommand="@{pop.onScanClickCommand}"/>
+        <com.czl.lib_base.widget.CommonItemSettingView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            attrs:mIcon="@drawable/ic_favorites"
+            attrs:mRight="true"
+            attrs:mTitle="我的收藏"
+            binding:onClickCommand="@{pop.onOpenCollectCommand}"/>
+
+        <com.czl.lib_base.widget.CommonItemSettingView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            attrs:mIcon="@drawable/ic_iv_score"
+            attrs:mRight="true"
+            attrs:mTitle="我的积分"
+            binding:onClickCommand="@{pop.onOpenScoreCommand}"/>
+
+        <com.czl.lib_base.widget.CommonItemSettingView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            attrs:mIcon="@drawable/ic_share"
+            attrs:mRight="true"
+            attrs:mTitle="我的分享"
+            binding:onClickCommand="@{pop.onOpenShareCommand}"/>
+
+        <com.czl.lib_base.widget.CommonItemSettingView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            attrs:mIcon="@drawable/ic_todo"
+            attrs:mRight="true"
+            attrs:mTitle="待办清单"
+            binding:onClickCommand="@{pop.onOpenTodoCommand}"/>
+
+        <com.czl.lib_base.widget.CommonItemSettingView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            attrs:mIcon="@drawable/ic_read"
+            attrs:mRight="true"
+            attrs:mTitle="阅读历史"
+            binding:onClickCommand="@{pop.onOpenWebHistoryCommand}"/>
+
+        <com.czl.lib_base.widget.CommonItemSettingView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            attrs:mIcon="@drawable/ic_about"
+            attrs:mRight="true"
+            attrs:mTitle="关于作者"
+            binding:onClickCommand="@{pop.onOpenAboutCommand}"/>
+
+        <com.czl.lib_base.widget.CommonItemSettingView
+            android:id="@+id/btn_exit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            attrs:mIcon="@drawable/ic_exit_login"
+            attrs:mRight="false"
+            attrs:mTitle="退出登录"
+            binding:isVisible="@{!TextUtils.isEmpty(user.publicName)}"
+            binding:onClickCommand="@{pop.onLogoutClickCommand}"
+            />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

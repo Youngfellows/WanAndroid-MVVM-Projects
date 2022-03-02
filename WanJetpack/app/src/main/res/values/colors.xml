@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="jetpack_black">#de000000</color>
+    <color name="jetpack_gray_50">#fafafa</color>
+    <color name="jetpack_gray_50_a600">#99fafafa</color>
+    <color name="jetpack_green_300">#6dc790</color>
+    <color name="jetpack_green_500">#49bb79</color>
+    <color name="jetpack_green_700">#005d2b</color>
+    <color name="jetpack_green_night">#327B51</color>
+    <color name="jetpack_green_900">#1a231e</color>
+    <color name="jetpack_white">#deffffff</color>
+    <color name="jetpack_yellow_300">#f8f99f</color>
+    <color name="jetpack_yellow_500">#ffff63</color>
+    <color name="project_category_background">@color/jetpack_gray_50</color>
+</resources>
