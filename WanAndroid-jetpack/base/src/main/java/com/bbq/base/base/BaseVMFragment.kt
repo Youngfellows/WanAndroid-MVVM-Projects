@@ -13,6 +13,9 @@ import com.bbq.base.utils.getResString
 
 abstract class BaseVMFragment<T : ViewDataBinding> : BaseFragment() {
 
+    /**
+     * 为视图绑定ViewBinding
+     */
     lateinit var mBinding: T
 
     override fun onCreateView(
@@ -46,6 +49,10 @@ abstract class BaseVMFragment<T : ViewDataBinding> : BaseFragment() {
         mBinding.unbind()
     }
 
+    /**
+     * 加载视图布局资源
+     * @return
+     */
     abstract fun getLayoutId(): Int
 
 

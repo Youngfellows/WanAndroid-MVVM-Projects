@@ -38,7 +38,6 @@ class HomeFragment : BaseVMFragment<FragmentHomeBinding>() {
 
     private lateinit var bannerHelper: SimpleBannerHelper
 
-
     private val viewModel: HomeViewModel by viewModel()
 
     private val mHotKeyAdapter by lazy {
@@ -278,5 +277,6 @@ class HomeFragment : BaseVMFragment<FragmentHomeBinding>() {
     }
 
     override fun initView(view: View) {
+
     }
 }

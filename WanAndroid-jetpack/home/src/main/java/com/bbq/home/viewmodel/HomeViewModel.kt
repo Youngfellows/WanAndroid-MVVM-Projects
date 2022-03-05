@@ -24,7 +24,11 @@ import kotlinx.coroutines.launch
 class HomeViewModel(app: Application, val repo: HomeRepo, val database: HomeDatabase) :
     BaseViewModel(app) {
 
+    /**
+     * 热词列表数据
+     */
     val mHotKeyList = MutableLiveData<MutableList<HotKeyBean>>()
+
     fun getHotKeys() {
         viewModelScope.launch(Dispatchers.IO) {
             val hotResult = repo.getHotKey()
@@ -36,7 +40,11 @@ class HomeViewModel(app: Application, val repo: HomeRepo, val database: HomeData
         }
     }
 
+    /**
+     * 轮播图列表数据
+     */
     val mBannerList = MutableLiveData<MutableList<BannerBean>>()
+
     fun getBannerList() {
         viewModelScope.launch(Dispatchers.IO) {
             val bannerResult = repo.getBanners()
