@@ -24,14 +24,31 @@ import com.youth.banner.transformer.DepthPageTransformer
 class HomePageAdapter(val context: Context) :
     PagingDataAdapter<ArticleBean, RecyclerView.ViewHolder>(differCallback) {
 
+    /**
+     * 初始化轮播图Adapter适配器
+     */
     private val mBannerAdapter by lazy {
         BannerAdapter(null)
     }
 
+    /**
+     * 伴生类,静态属性,静态方法
+     */
     companion object {
+
+        /**
+         * 轮播图类型
+         */
         const val TYPE_BANNER = 0
+
+        /**
+         * 文章类型
+         */
         const val TYPE_ARTICLE = 1
 
+        /**
+         * 静态属性,匿名对象
+         */
         val differCallback = object : DiffUtil.ItemCallback<ArticleBean>() {
             override fun areItemsTheSame(oldItem: ArticleBean, newItem: ArticleBean): Boolean {
                 return oldItem.id == newItem.id
@@ -43,6 +60,11 @@ class HomePageAdapter(val context: Context) :
         }
     }
 
+    /**
+     * 获取指定位置的item类型
+     * @param position 指定的位置
+     * @return
+     */
     override fun getItemViewType(position: Int): Int {
         //0变成了banner，所以后面的数据要 -1
         return if (position == 0) {
@@ -52,11 +74,20 @@ class HomePageAdapter(val context: Context) :
         }
     }
 
-
+    /**
+     * 首页文章列表ViewHolder
+     * @property dataBinding
+     */
     inner class HomeViewHolder(val dataBinding: ItemHomeBinding) :
         RecyclerView.ViewHolder(dataBinding.root) {
     }
 
+    /**
+     * 轮播图的ViewHolder-内部类
+     * @constructor
+     *
+     * @param itemView 视图
+     */
     inner class BannerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         init {
             val banner =
@@ -98,6 +129,12 @@ class HomePageAdapter(val context: Context) :
         }
     }
 
+    /**
+     * 为视图创建ViewHolder
+     * @param parent
+     * @param viewType item视图类型
+     * @return
+     */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return if (viewType == TYPE_BANNER) {
             val bannerView = LayoutInflater.from(parent.context)
