@@ -34,12 +34,22 @@ abstract class BaseVMFragment<T : ViewDataBinding> : BaseFragment() {
         startObserver()
     }
 
+    /**
+     * 初始化视图
+     * @param view
+     */
     abstract fun initView(view: View)
 
+    /**
+     * 初始化被观察数据
+     */
     open fun startObserver() {
 
     }
 
+    /**
+     * 初始化数据
+     */
     open fun initData() {
 
     }

@@ -139,7 +139,9 @@ class HomeFragment : BaseVMFragment<FragmentHomeBinding>() {
         mArticleAdapter.withLoadStateFooter(FooterAdapter(mArticleAdapter))
     }
 
-
+    /**
+     * 初始化头部搜索
+     */
     private fun initTopSearch() {
         mBinding.topSear.viewBg.setOnClickListener {
             goSearch()
@@ -157,6 +159,9 @@ class HomeFragment : BaseVMFragment<FragmentHomeBinding>() {
         }
     }
 
+    /**
+     * 初始化被观察数据
+     */
     override fun startObserver() {
         super.startObserver()
         viewModel.mHotKeyList.observe(this, {
