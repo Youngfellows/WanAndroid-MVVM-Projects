@@ -109,6 +109,7 @@ class HomePageAdapter(val context: Context) :
         if (holder.itemViewType == TYPE_BANNER) {
         } else {
             val holder = holder as HomeViewHolder
+            //为item 绑定数据
             val article = ItemHomeArticle(getItem(position - 1)!!)
             article.bindData()
             holder.dataBinding?.item = article

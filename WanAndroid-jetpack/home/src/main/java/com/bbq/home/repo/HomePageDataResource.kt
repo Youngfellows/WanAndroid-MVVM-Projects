@@ -7,6 +7,11 @@ import com.bbq.home.bean.ArticleBean
 import com.bbq.home.db.HomeDatabase
 import com.bbq.net.model.ResultState
 
+/**
+ * 分页加载的数据源工厂
+ * @property repo 网络请求
+ * @property database 数据库存储
+ */
 class HomePageDataResource(val repo: HomeRepo, val database: HomeDatabase) :
     PagingSource<Int, ArticleBean>() {
     //params ：请求列表需要的参数
@@ -39,6 +44,7 @@ class HomePageDataResource(val repo: HomeRepo, val database: HomeDatabase) :
             is ResultState.Error -> {
                 //从数据库中取
 //                return LoadResult.Error(response.exception)
+                //异步获取
                 val dbData = database.withTransaction {
                     if (currentPage == 0) {
                         val topData = database.articleDao().queryLocalArticle(-1)
