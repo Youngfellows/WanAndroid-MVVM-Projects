@@ -16,6 +16,10 @@ import com.bbq.net.model.ResultState
  */
 class HomeRepo(private val homeApi: HomeApi) : BaseRepository() {
 
+    /**
+     * 获取热词列表数据
+     * @return
+     */
     suspend fun getHotKey(): ResultState<MutableList<HotKeyBean>> {
         return callRequest(call = { handleResponse(homeApi.getHotKey()) })
     }

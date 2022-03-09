@@ -1,6 +1,7 @@
 package com.bbq.home.ui
 
 import android.content.Intent
+import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import androidx.lifecycle.lifecycleScope
@@ -31,19 +32,33 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-
+/**
+ * 首页
+ */
 class HomeFragment : BaseVMFragment<FragmentHomeBinding>() {
 
-    private val TAG = "HomeFragment"
+    private val TAG: String = this.javaClass.simpleName
 
+    /**
+     * 自动轮播得RecyclerView帮助
+     */
     private lateinit var bannerHelper: SimpleBannerHelper
 
+    /**
+     * 首页的ViewModel
+     */
     private val viewModel: HomeViewModel by viewModel()
 
+    /**
+     * 热词列表适配器
+     */
     private val mHotKeyAdapter by lazy {
         HotKeyAdapter(viewModel.mHotKeyList.value)
     }
 
+    /**
+     * 文章列表适配器
+     */
     private val mArticleAdapter by lazy {
         HomePageAdapter(requireContext())
     }
@@ -70,9 +85,10 @@ class HomeFragment : BaseVMFragment<FragmentHomeBinding>() {
         initTopSearch()
         initRecycler()
         initSwipeRefresh()
-        viewModel.getHotKeys()
-        viewModel.getBannerList()
+        viewModel.getHotKeys() //获取热词列表数据
+        viewModel.getBannerList() //获取轮播图列表数据
         lifecycleScope.launch(Dispatchers.IO) {
+            //获取文章列表数据
             viewModel.getArticles().collectLatest {
                 withContext(Dispatchers.Main) {
                     mArticleAdapter.submitData(it)
@@ -152,8 +168,7 @@ class HomeFragment : BaseVMFragment<FragmentHomeBinding>() {
         mBinding.topSear.recyclerHotKey.layoutManager = LinearLayoutManager(context)
         mBinding.topSear.recyclerHotKey.adapter = mHotKeyAdapter
         //这段代码得放到 layoutManager 设置了之后，要不然没有效果
-        bannerHelper =
-            SimpleBannerHelper(mBinding.topSear.recyclerHotKey, RecyclerView.VERTICAL)
+        bannerHelper = SimpleBannerHelper(mBinding.topSear.recyclerHotKey, RecyclerView.VERTICAL)
         mHotKeyAdapter.setOnItemClickListener { adapter, view, position ->
             goSearch()
         }
@@ -165,6 +180,7 @@ class HomeFragment : BaseVMFragment<FragmentHomeBinding>() {
     override fun startObserver() {
         super.startObserver()
         viewModel.mHotKeyList.observe(this, {
+            //更新热词适配器数据集
             mHotKeyAdapter.setNewInstance(it)
             bannerHelper.startTimerTask()
         })
@@ -276,6 +292,7 @@ class HomeFragment : BaseVMFragment<FragmentHomeBinding>() {
     private fun goSearch() {
         //当前展示的标题
         val title = mHotKeyAdapter.getItem(bannerHelper.findLastVisibleItemPosition()).name
+        Log.d(TAG, "goSearch:: hot_key:${title}")
         val intent = Intent(requireContext(), SearchActivity::class.java)
         intent.putExtra("search_key", title)
         startActivity(intent)

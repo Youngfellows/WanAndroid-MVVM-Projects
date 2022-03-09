@@ -10,6 +10,10 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
+/**
+ * 更新Item绑定的数据
+ * @property bean
+ */
 class ItemHomeArticle(val bean: ArticleBean) {
 
     var mTitle = ObservableField("")
@@ -31,6 +35,9 @@ class ItemHomeArticle(val bean: ArticleBean) {
     var mTagVM4 = ObservableField<TagViewModel>()
 
 
+    /**
+     * 为Item绑定数据
+     */
     fun bindData() {
         setTitle(bean)
         setTime(bean)

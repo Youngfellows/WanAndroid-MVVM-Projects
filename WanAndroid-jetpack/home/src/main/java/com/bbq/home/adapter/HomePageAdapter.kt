@@ -105,6 +105,11 @@ class HomePageAdapter(val context: Context) :
         }
     }
 
+    /**
+     * 为ViewHolder视图绑定数据
+     * @param holder
+     * @param position
+     */
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder.itemViewType == TYPE_BANNER) {
         } else {
@@ -114,6 +119,7 @@ class HomePageAdapter(val context: Context) :
             article.bindData()
             holder.dataBinding?.item = article
             holder.itemView.setOnClickListener {
+                //跳转到web文章页
                 ARouter.getInstance().navigation(WebService::class.java)
                     .goWeb(
                         context, getItem(position - 1)!!.title,
@@ -124,6 +130,7 @@ class HomePageAdapter(val context: Context) :
             }
             holder.dataBinding.tvCollect.setOnClickListener {
                 if (collectListener != null) {
+                    //回调点击收藏按钮
                     collectListener!!.collect(article, position)
                 }
             }
@@ -153,25 +160,49 @@ class HomePageAdapter(val context: Context) :
         }
     }
 
+    /**
+     * 返回条目个数
+     * @return
+     */
     override fun getItemCount(): Int {
         return super.getItemCount()
     }
 
+    /**
+     * 获取条目数据
+     * @param position 位置
+     * @return
+     */
     fun getItemData(position: Int): ArticleBean? {
         return getItem(position)
     }
 
 
+    /**
+     * 设置轮播图数据集
+     * @param bannerList
+     */
     fun setBannerList(bannerList: List<BannerBean>) {
         mBannerAdapter.setDatas(bannerList)
     }
 
+    /**
+     * 点击文章收藏的回调
+     */
     private var collectListener: OnCollectListener? = null
+
     fun setOnCollectListener(listener: OnCollectListener) {
         this.collectListener = listener
     }
 
+    /**
+     * 点击文章收藏的回调
+     */
     interface OnCollectListener {
+        /**
+         * @param articleBean 文章详情
+         * @param position 位置
+         */
         fun collect(articleBean: ItemHomeArticle, position: Int)
     }
 

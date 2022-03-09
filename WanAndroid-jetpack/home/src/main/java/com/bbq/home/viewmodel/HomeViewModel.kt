@@ -21,6 +21,15 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
+/**
+ * 首页的ViewModel
+ * @property repo 网络接口
+ * @property database 本地存储
+ * @constructor
+ * TODO
+ *
+ * @param app 上下文
+ */
 class HomeViewModel(app: Application, val repo: HomeRepo, val database: HomeDatabase) :
     BaseViewModel(app) {
 
@@ -29,10 +38,14 @@ class HomeViewModel(app: Application, val repo: HomeRepo, val database: HomeData
      */
     val mHotKeyList = MutableLiveData<MutableList<HotKeyBean>>()
 
+    /**
+     * 获取热词列表数据
+     */
     fun getHotKeys() {
         viewModelScope.launch(Dispatchers.IO) {
             val hotResult = repo.getHotKey()
             if (hotResult is ResultState.Success) {
+                //更新被观察的热词列表数据
                 mHotKeyList.postValue(hotResult.data!!)
             } else if (hotResult is ResultState.Error) {
                 toast(hotResult.exception.msg)
@@ -45,6 +58,9 @@ class HomeViewModel(app: Application, val repo: HomeRepo, val database: HomeData
      */
     val mBannerList = MutableLiveData<MutableList<BannerBean>>()
 
+    /**
+     * 获取轮播图列表数据
+     */
     fun getBannerList() {
         viewModelScope.launch(Dispatchers.IO) {
             val bannerResult = repo.getBanners()
@@ -56,6 +72,9 @@ class HomeViewModel(app: Application, val repo: HomeRepo, val database: HomeData
         }
     }
 
+    /**
+     * 分页配置
+     */
     val pageConfig = PagingConfig(
         pageSize = 15,//每页多少个条目；必填
 //        prefetchDistance = 5,//预加载下一页的距离，滑动到倒数第几个条目就加载下一页，无缝加载（可选）默认值是pageSize
@@ -64,10 +83,14 @@ class HomeViewModel(app: Application, val repo: HomeRepo, val database: HomeData
 //        maxSize = 50,//定义列表最大数量；可选，默认值是：Int.MAX_VALUE
     )
 
-    //    config ：分页配置
-//    initialKey ： 初始页的页码 （可选）
-//    remoteMediator ：远程数据解调员；网络请求数据后处理的类，可以做数据缓存
-//    pagingSourceFactory：数据源工厂（每次刷新数据都会生产新的数据源）
+    /**
+     * 获取文章列表数据
+     * config ：分页配置
+     * initialKey ： 初始页的页码 （可选）
+     * remoteMediator ：远程数据解调员；网络请求数据后处理的类，可以做数据缓存
+     * pagingSourceFactory：数据源工厂（每次刷新数据都会生产新的数据源）
+     * @return
+     */
     fun getArticles(): Flow<PagingData<ArticleBean>> {
         return Pager(pageConfig) {
             HomePageDataResource(repo, database)

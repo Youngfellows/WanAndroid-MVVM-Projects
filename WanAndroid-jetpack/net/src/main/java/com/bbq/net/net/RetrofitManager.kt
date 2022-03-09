@@ -2,6 +2,7 @@ package com.bbq.net.net
 
 import com.bbq.net.cookie.HttpsHelper
 import com.bbq.net.cookie.SimpleCookieJar
+import com.bbq.net.interceptor.HttpLogger
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -42,6 +43,11 @@ class RetrofitManager private constructor() {
 
     private fun initClient(): OkHttpClient {
 
+        val loggingInterceptor: HttpLoggingInterceptor =
+            HttpLoggingInterceptor(HttpLogger()).apply {
+                setLevel(HttpLoggingInterceptor.Level.BODY)
+            }
+
         val keyManagers =
             HttpsHelper.prepareKeyManager(clientCertificate, clientCertificatePassword)
         val trustManager = HttpsHelper.prepareX509TrustManager(serverCertificates)
@@ -64,7 +70,8 @@ class RetrofitManager private constructor() {
                 } else HttpsURLConnection.getDefaultHostnameVerifier().verify(hostname, session)
             }
             .sslSocketFactory(sslContext.socketFactory, trustManager)
-            .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+            //.addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+            .addNetworkInterceptor(loggingInterceptor)
             .build()
     }
 
