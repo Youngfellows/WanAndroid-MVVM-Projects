@@ -24,10 +24,19 @@ class HomeRepo(private val homeApi: HomeApi) : BaseRepository() {
         return callRequest(call = { handleResponse(homeApi.getHotKey()) })
     }
 
+    /**
+     * 获取轮播图列表数据
+     * @return
+     */
     suspend fun getBanners(): ResultState<MutableList<BannerBean>> {
         return callRequest { handleResponse(homeApi.getBanner()) }
     }
 
+    /**
+     * 获取分页文章列表
+     * @param page 当前页
+     * @return
+     */
     suspend fun getArticleList(page: Int): ResultState<BasePagingResult<MutableList<ArticleBean>>> {
         //如果page==0的话，不仅要获取文章还有获取置顶的
         return if (page == 0) {

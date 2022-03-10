@@ -91,6 +91,7 @@ class HomeFragment : BaseVMFragment<FragmentHomeBinding>() {
             //获取文章列表数据
             viewModel.getArticles().collectLatest {
                 withContext(Dispatchers.Main) {
+                    Log.d(TAG, "initData:: submitData ...")
                     mArticleAdapter.submitData(it)
                 }
             }
@@ -185,6 +186,7 @@ class HomeFragment : BaseVMFragment<FragmentHomeBinding>() {
             bannerHelper.startTimerTask()
         })
         viewModel.mBannerList.observe(this, {
+            //更新轮播图数据集
             mArticleAdapter.setBannerList(it)
         })
         mBinding.swipeRefresh.setOnRefreshListener {

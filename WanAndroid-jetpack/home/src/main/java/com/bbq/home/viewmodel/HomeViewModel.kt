@@ -98,7 +98,9 @@ class HomeViewModel(app: Application, val repo: HomeRepo, val database: HomeData
             .cachedIn(viewModelScope)//cachedIn 绑定协程生命周期
     }
 
-
+    /**
+     * 悬浮按钮点击数据
+     */
     var mFabClick = MutableLiveData(false)
     var mFabVM = FabViewModel(
         onClick = {
@@ -107,11 +109,20 @@ class HomeViewModel(app: Application, val repo: HomeRepo, val database: HomeData
     )
     var mFabVisible = ObservableField(false)
 
-
+    /**
+     * 收藏文章
+     * @param id
+     * @return
+     */
     suspend fun collect(id: Int?): Boolean {
         return repo.collect(id)
     }
 
+    /**
+     * 取消收藏文章
+     * @param id
+     * @return
+     */
     suspend fun unCollect(id: Int?): Boolean {
         return repo.unCollect(id)
     }

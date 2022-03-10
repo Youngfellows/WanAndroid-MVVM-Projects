@@ -4,6 +4,9 @@ import android.os.Parcelable
 import com.tencent.mmkv.MMKV
 import java.util.*
 
+/**
+ * SP工具类
+ */
 object SpUtils {
 
     var mmkv: MMKV? = null

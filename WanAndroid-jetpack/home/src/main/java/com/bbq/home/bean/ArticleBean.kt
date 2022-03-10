@@ -5,6 +5,44 @@ import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import com.bbq.home.db.TagTypeConverter
 
+/**
+ * 文章实体，对应tab_article数据库表
+ * @property page
+ * @property articleType
+ * @property apkLink
+ * @property audit
+ * @property author
+ * @property canEdit
+ * @property chapterId
+ * @property chapterName
+ * @property collect
+ * @property courseId
+ * @property desc
+ * @property descMd
+ * @property envelopePic
+ * @property fresh
+ * @property host
+ * @property id
+ * @property link
+ * @property niceDate
+ * @property niceShareDate
+ * @property origin
+ * @property prefix
+ * @property projectLink
+ * @property publishTime
+ * @property realSuperChapterId
+ * @property selfVisible
+ * @property shareDate
+ * @property shareUser
+ * @property superChapterId
+ * @property superChapterName
+ * @property tags
+ * @property title
+ * @property type
+ * @property userId
+ * @property visible
+ * @property zan
+ */
 @Entity(tableName = "tab_article")
 @TypeConverters(TagTypeConverter::class)
 data class ArticleBean(

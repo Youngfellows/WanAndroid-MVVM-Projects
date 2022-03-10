@@ -21,6 +21,10 @@ import com.youth.banner.adapter.BannerImageAdapter
 import com.youth.banner.indicator.CircleIndicator
 import com.youth.banner.transformer.DepthPageTransformer
 
+/**
+ * 文章列表适配器
+ * @property context 上下文
+ */
 class HomePageAdapter(val context: Context) :
     PagingDataAdapter<ArticleBean, RecyclerView.ViewHolder>(differCallback) {
 

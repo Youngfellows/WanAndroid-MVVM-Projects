@@ -1,11 +1,13 @@
 package com.bbq.home.repo
 
+import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import androidx.room.withTransaction
 import com.bbq.home.bean.ArticleBean
 import com.bbq.home.db.HomeDatabase
 import com.bbq.net.model.ResultState
+import kotlin.jvm.*
 
 /**
  * 分页加载的数据源工厂
@@ -14,11 +16,20 @@ import com.bbq.net.model.ResultState
  */
 class HomePageDataResource(val repo: HomeRepo, val database: HomeDatabase) :
     PagingSource<Int, ArticleBean>() {
-    //params ：请求列表需要的参数
-    //LoadResult ：列表数据请求结果，包含下一页要请求的key
+
+    companion object {
+        private const val TAG: String = "HomePageDataResource"
+    }
+
+
+    /**
+     * @param params ：请求列表需要的参数
+     * @return LoadResult ：列表数据请求结果，包含下一页要请求的key
+     */
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ArticleBean> {
         //从start开始
         val currentPage = params.key ?: 0
+        Log.d(TAG, "load:: currentPage:${currentPage}")
         //从repo中获取数据，repo不管是本地的还是网络的
         when (val response = repo.getArticleList(currentPage)) {
             is ResultState.Success -> {
@@ -47,6 +58,7 @@ class HomePageDataResource(val repo: HomeRepo, val database: HomeDatabase) :
                 //异步获取
                 val dbData = database.withTransaction {
                     if (currentPage == 0) {
+                        //先读取置顶文章
                         val topData = database.articleDao().queryLocalArticle(-1)
                         val article = database.articleDao().queryLocalArticle(currentPage)
                         val tmpData = mutableListOf<ArticleBean>()

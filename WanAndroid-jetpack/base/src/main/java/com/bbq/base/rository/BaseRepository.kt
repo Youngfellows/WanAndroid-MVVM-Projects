@@ -49,9 +49,9 @@ open class BaseRepository {
     ): ResultState<T> {
         return coroutineScope {
             if (response.errorCode != 0) {
-                //返回的不成功
+                //回调失败结果
                 errorBlock?.let { it() }
-                //结果回调
+                //返回的不成功
                 ResultState.Error(
                     ResultException(
                         response.errorCode.toString(),
@@ -59,9 +59,9 @@ open class BaseRepository {
                     )
                 )
             } else {
-                //返回成功
+                //回调成功结果
                 successBlock?.let { it() }
-                //结果回调
+                //返回成功
                 ResultState.Success(response.data)
             }
         }
