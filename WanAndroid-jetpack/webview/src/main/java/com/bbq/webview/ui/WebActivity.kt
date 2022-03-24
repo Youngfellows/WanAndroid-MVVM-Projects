@@ -23,13 +23,36 @@ import com.bbq.webview.viewmodel.WebViewModel
 import com.just.agentweb.AgentWeb
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-
+/**
+ * 文章详情页
+ */
 class WebActivity : BaseVMActivity<ActivityWebBinding>() {
+
+    /**
+     * 文章标题
+     */
     private lateinit var mTitle: String
+
+    /**
+     * 文章连接
+     */
     private lateinit var mUrl: String
+
+    /**
+     * 文章ID
+     */
     private var mId: Int = -1
+
+    /**
+     * 是否收藏
+     */
     private var mCollect = false
+
+    /**
+     * 携带文章页被观察数据的ViewModel
+     */
     val viewModel: WebViewModel by viewModel()
+
     private lateinit var mAgentWeb: AgentWeb
 
     override fun initView(savedInstanceState: Bundle?) {

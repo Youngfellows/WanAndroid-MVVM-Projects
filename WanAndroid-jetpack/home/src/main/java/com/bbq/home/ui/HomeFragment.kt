@@ -88,7 +88,7 @@ class HomeFragment : BaseVMFragment<FragmentHomeBinding>() {
         viewModel.getHotKeys() //获取热词列表数据
         viewModel.getBannerList() //获取轮播图列表数据
         lifecycleScope.launch(Dispatchers.IO) {
-            //获取文章列表数据
+            //获取文章列表分页数据
             viewModel.getArticles().collectLatest {
                 withContext(Dispatchers.Main) {
                     Log.d(TAG, "initData:: submitData ...")
@@ -133,6 +133,7 @@ class HomeFragment : BaseVMFragment<FragmentHomeBinding>() {
                 }
             }
         })
+        //注册收藏取消收藏的数据变化观察
         LiveDataBus.with<EventCollectBean>("EventCollectBean")
             .observe(this, {
                 if (mArticleAdapter.itemCount <= 1) return@observe
