@@ -60,7 +60,12 @@ class HomeRepo(private val homeApi: HomeApi) : BaseRepository() {
         }
     }
 
-    //搜索
+    /**
+     * 搜索
+     * @param page
+     * @param key
+     * @return
+     */
     suspend fun searchArticles(
         page: Int,
         key: String
@@ -68,18 +73,32 @@ class HomeRepo(private val homeApi: HomeApi) : BaseRepository() {
         return callRequest { handleResponse(homeApi.search(page, key)) }
     }
 
-
+    /**
+     * 收藏文章
+     * @param id 文章ID
+     * @return
+     */
     suspend fun collect(id: Int?): Boolean {
         val result = callRequest { handleResponse(homeApi.collect(id)) }
         return result is ResultState.Success
     }
 
+    /**
+     * 取消收藏文章
+     * @param id 文章ID
+     * @return
+     */
     suspend fun unCollect(id: Int?): Boolean {
         val result = callRequest { handleResponse(homeApi.unCollect(id)) }
         return result is ResultState.Success
     }
 
 
+    /**
+     * 问答列表
+     * @param position
+     * @param data
+     */
     suspend fun getFaqList(
         position: Int,
         data: StateLiveData<BasePagingResult<List<ArticleBean>>>
@@ -87,7 +106,11 @@ class HomeRepo(private val homeApi: HomeApi) : BaseRepository() {
         executeRequest({ homeApi.wendaList(position) }, data)
     }
 
-
+    /**
+     * 自己收藏文章列表
+     * @param position
+     * @param data
+     */
     suspend fun getCollectionList(
         position: Int,
         data: StateLiveData<BasePagingResult<List<ArticleBean>>>

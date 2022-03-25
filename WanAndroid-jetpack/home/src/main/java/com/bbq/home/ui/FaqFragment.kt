@@ -19,16 +19,34 @@ import com.bbq.home.viewmodel.FaqVM
 import com.bbq.net.model.DataStatus
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
+/**
+ * 问答页
+ */
 class FaqFragment : BaseVMFragment<FragmentFaqBinding>() {
+
+    /**
+     * 问答页携带被观察数据的ViewModel
+     */
     private val viewModel: FaqVM by viewModel()
 
+    /**
+     * 文章列表
+     */
     private val mArticleList by lazy {
         mutableListOf<ArticleBean>()
     }
 
+    /**
+     * 首页文章列表适配器
+     */
     private val mArticleAdapter by lazy {
         HomeArticleAdapter(mArticleList)
     }
+
+    /**
+     * 当前位置
+     */
+    private var mCurrentPosition = 0
 
     override fun initView(view: View) {
         StatusBarUtil.setColor(requireActivity(), R.color.theme.getResColor())
@@ -49,15 +67,17 @@ class FaqFragment : BaseVMFragment<FragmentFaqBinding>() {
     }
 
     private fun initRecyclerListener() {
-        //下拉刷新和上拉加载更多
+        //下拉刷新
         mBinding.smartRefresh.setOnRefreshListener {
             mCurrentPosition = 0
             getData()
         }
+        //上拉加载更多
         mArticleAdapter.loadMoreModule.setOnLoadMoreListener {
             mCurrentPosition++
             getData()
         }
+        //Item点击事件
         mArticleAdapter.setOnItemClickListener { adapter, view, position ->
             val bean = mArticleAdapter.getItem(position)
             ARouter.getInstance().navigation(WebService::class.java)
@@ -101,7 +121,6 @@ class FaqFragment : BaseVMFragment<FragmentFaqBinding>() {
         }
     }
 
-    private var mCurrentPosition = 0
 
     override fun initData() {
         super.initData()
