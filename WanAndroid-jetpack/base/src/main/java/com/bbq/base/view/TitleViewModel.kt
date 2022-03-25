@@ -7,7 +7,15 @@ import com.bbq.base.utils.getDrawable
 import com.bbq.base.utils.getResColor
 
 /**
- * Created by jhb on 2020-01-15.
+ * 标题栏
+ * @property leftText
+ * @property leftDrawable
+ * @property leftAction 点击左边
+ * @property title
+ * @property rightText
+ * @property rightDrawable
+ * @property rightAction 点击右边
+ * @property background
  */
 class TitleViewModel(
     var leftText: String? = "",

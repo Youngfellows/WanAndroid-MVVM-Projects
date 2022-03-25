@@ -56,6 +56,7 @@ class WebActivity : BaseVMActivity<ActivityWebBinding>() {
     private lateinit var mAgentWeb: AgentWeb
 
     override fun initView(savedInstanceState: Bundle?) {
+        //设置状态栏
         StatusBarUtil.setColor(this, R.color.theme.getResColor())
         mBinding.vm = viewModel
         mTitle = intent.getStringExtra(key_title) ?: ""
@@ -124,6 +125,10 @@ class WebActivity : BaseVMActivity<ActivityWebBinding>() {
         }
     }
 
+    /**
+     * 加载网页布局
+     * @return
+     */
     override fun getLayoutId(): Int {
         return R.layout.activity_web
     }
