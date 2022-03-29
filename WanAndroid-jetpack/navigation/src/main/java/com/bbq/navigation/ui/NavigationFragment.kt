@@ -9,6 +9,7 @@ import com.bbq.navigation.databinding.NavFragmentNavigationBinding
 import com.google.android.material.tabs.TabLayoutMediator
 
 class NavigationFragment : BaseVMFragment<NavFragmentNavigationBinding>() {
+
     private val mTitles = arrayOf("导航", "体系", "公众号", "项目", "项目分类")
 
     private val mFragmentList by lazy {
