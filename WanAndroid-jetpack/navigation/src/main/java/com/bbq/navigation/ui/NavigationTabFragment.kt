@@ -18,22 +18,41 @@ import com.kingja.loadsir.core.LoadService
 import com.kingja.loadsir.core.LoadSir
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
+/**
+ * 导航TAB页面
+ */
 class NavigationTabFragment : BaseVMFragment<NavFragmentNavigationTabBinding>() {
 
+    /**
+     * 导航页关联被观察数据的ViewModel
+     */
     private val viewModel: NavTabVM by viewModel()
 
+    /**
+     * 左边导航列表
+     */
     private val mLeftList by lazy {
         mutableListOf<NavTabBean>()
     }
 
+    /**
+     * 右边文章列表
+     */
     private val mRightList by lazy {
         mutableListOf<ArticleBean>()
     }
 
+    /**
+     * 左边导航列表适配器
+     */
     private val mLeftAdapter by lazy {
         NavTabLeftAdapter(mLeftList)
     }
 
+
+    /**
+     * 右边文章列表适配器
+     */
     private val mRightAdapter by lazy {
         NavTabRightAdapter(mRightList)
     }

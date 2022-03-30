@@ -12,6 +12,14 @@ import com.bbq.navigation.repo.NavRepo
 import com.bbq.net.model.BasePagingResult
 import kotlinx.coroutines.launch
 
+/**
+ * 导航页关联被观察数据的ViewModel
+ * @property navRepo
+ * @constructor
+ * TODO
+ *
+ * @param application
+ */
 class NavTabVM(application: Application, val navRepo: NavRepo) : BaseViewModel(application) {
 
     val mLeftList = StateLiveData<List<NavTabBean>>()

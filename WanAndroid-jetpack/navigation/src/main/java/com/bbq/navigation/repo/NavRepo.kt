@@ -10,6 +10,10 @@ import com.bbq.navigation.bean.TreeBean
 import com.bbq.net.model.BasePagingResult
 import com.bbq.net.model.ResultState
 
+/**
+ * 导航的API接口实现
+ * @property navApi API接口
+ */
 class NavRepo(val navApi: NavApi) : BaseRepository() {
     suspend fun getNavList(leftList: StateLiveData<List<NavTabBean>>) {
         executeRequest({ navApi.naviList() }, leftList)
