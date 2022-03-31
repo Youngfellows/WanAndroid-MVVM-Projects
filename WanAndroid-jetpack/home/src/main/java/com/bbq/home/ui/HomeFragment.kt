@@ -16,6 +16,7 @@ import com.bbq.base.route.WebService
 import com.bbq.base.utils.LiveDataBus
 import com.bbq.base.utils.SimpleBannerHelper
 import com.bbq.base.utils.getResColor
+import com.bbq.base.utils.isInternetAvailable
 import com.bbq.home.R
 import com.bbq.home.adapter.HomePageAdapter
 import com.bbq.home.adapter.HotKeyAdapter
@@ -88,14 +89,25 @@ class HomeFragment : BaseVMFragment<FragmentHomeBinding>() {
         viewModel.getHotKeys() //获取热词列表数据
         viewModel.getBannerList() //获取轮播图列表数据
         lifecycleScope.launch(Dispatchers.IO) {
-            //获取文章列表分页数据
-            viewModel.getArticles().collectLatest {
-                withContext(Dispatchers.Main) {
-                    Log.d(TAG, "initData:: submitData ...")
-                    mArticleAdapter.submitData(it)
+            val internetAvailable = context?.isInternetAvailable()
+            Log.d(TAG, "initData:: internetAvailable=${internetAvailable}")
+            when (internetAvailable) {
+                true -> {
+                    //获取文章列表分页数据
+                    viewModel.getArticles().collectLatest { it ->
+                        withContext(Dispatchers.Main) {
+                            Log.d(TAG, "initData:: submitData ~~~")
+                            mArticleAdapter.submitData(it)
+                        }
+                    }
+                }
+                false -> {
+                    Log.e(TAG, "initData:: 网络不可用 ")
+                    //加载没有网络的界面
                 }
             }
         }
+
         initListener()
     }
 

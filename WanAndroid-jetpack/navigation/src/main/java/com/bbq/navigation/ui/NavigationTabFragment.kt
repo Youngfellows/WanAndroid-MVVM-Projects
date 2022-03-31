@@ -57,6 +57,9 @@ class NavigationTabFragment : BaseVMFragment<NavFragmentNavigationTabBinding>() 
         NavTabRightAdapter(mRightList)
     }
 
+    /**
+     * 加载反馈
+     */
     private val mLoadSir by lazy {
         val loadSir = LoadSir.Builder()
             .addCallback(EmptyCallback())
@@ -69,6 +72,9 @@ class NavigationTabFragment : BaseVMFragment<NavFragmentNavigationTabBinding>() 
         }
     }
 
+    /**
+     * 当前选中的左边导航数据实体
+     */
     private lateinit var mCurrentNavTab: NavTabBean
 
     override fun initView(view: View) {
@@ -82,18 +88,22 @@ class NavigationTabFragment : BaseVMFragment<NavFragmentNavigationTabBinding>() 
             if (mLeftList[position].cid == mCurrentNavTab.cid) return@setOnItemClickListener
             //选中当前的
             mLeftList.forEachIndexed { index, navTabBean ->
+                //选中
                 if (index == position) {
                     navTabBean.isSelected = true
                     mCurrentNavTab = navTabBean
                     switchRightData()
                 } else {
+                    //未选中
                     navTabBean.isSelected = false
                 }
+                //刷新列表
                 mLeftAdapter.notifyDataSetChanged()
             }
         }
         mRightAdapter.setOnItemClickListener { adapter, view, position ->
             val bean = mRightList[position]
+            //点击跳转到网页
             WebServiceUtils.goWeb(requireContext(), bean.title, bean.link)
         }
 

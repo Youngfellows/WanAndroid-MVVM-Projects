@@ -11,11 +11,14 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.*
+import java.lang.IllegalArgumentException
 
 /**
  * 基础的 Repository
  */
 open class BaseRepository {
+
+    protected val TAG: String = this.javaClass.simpleName
 
     /**
      * 请求
@@ -26,6 +29,7 @@ open class BaseRepository {
      */
     suspend fun <T : Any> callRequest(call: suspend () -> ResultState<T>): ResultState<T> {
         return try {
+            //Log.d(TAG, Log.getStackTraceString(IllegalArgumentException("callRequest()")))
             call()
         } catch (e: Exception) {
             //这里统一处理异常
@@ -94,6 +98,7 @@ open class BaseRepository {
                 )
             }
         } catch (e: Exception) {
+            Log.d(TAG, "executeRequest:: ${e.message}")
             //非后台返回错误，捕获到的异常
             baseResp.dataStatus = DataStatus.STATE_ERROR
             baseResp.exception = DealException.handlerException(e)

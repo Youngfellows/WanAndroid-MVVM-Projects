@@ -22,6 +22,9 @@ import kotlinx.coroutines.launch
  */
 class NavTabVM(application: Application, val navRepo: NavRepo) : BaseViewModel(application) {
 
+    /**
+     * 被观察数据-左边导航列表
+     */
     val mLeftList = StateLiveData<List<NavTabBean>>()
 
     fun getNavList() {

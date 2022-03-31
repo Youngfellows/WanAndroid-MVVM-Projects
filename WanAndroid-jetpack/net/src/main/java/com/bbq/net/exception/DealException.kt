@@ -1,10 +1,12 @@
 package com.bbq.net.exception
 
 import android.net.ParseException
+import android.util.Log
 import com.google.gson.JsonParseException
 
 import org.json.JSONException
 import retrofit2.HttpException
+import java.lang.IllegalArgumentException
 
 import java.net.SocketException
 import java.net.SocketTimeoutException
@@ -17,12 +19,16 @@ import javax.net.ssl.SSLHandshakeException
  */
 object DealException {
 
+    private val TAG: String = this.javaClass.simpleName
+
     /**
      * 静态方法,异常处理工具
      * @param t 异常
      * @return
      */
     fun handlerException(t: Throwable): ResultException {
+        Log.e(TAG, "handlerException:: ${t.message}")
+        //Log.e(TAG, Log.getStackTraceString(IllegalArgumentException("error: ${t.message}")))
         val ex: ResultException
         if (t is ResultException) {
             ex = t
@@ -71,13 +77,13 @@ object DealException {
                 ApiCode.SSL_ERROR,
                 "证书验证失败"
             )
-            return ex
+            //return ex
         } else if (t is UnknownHostException) {
             ex = ResultException(
                 ApiCode.UNKNOW_HOST,
                 "网络错误，请切换网络重试"
             )
-            return ex
+            //return ex
         } else if (t is UnknownServiceException) {
             ex = ResultException(
                 ApiCode.UNKNOW_HOST,
@@ -94,6 +100,7 @@ object DealException {
                 "未知错误"
             )
         }
+        Log.e(TAG, "handlerException:: ${ex.errCode},${ex.msg}")
         return ex
     }
 }
