@@ -88,27 +88,33 @@ class HomeFragment : BaseVMFragment<FragmentHomeBinding>() {
         initSwipeRefresh()
         viewModel.getHotKeys() //获取热词列表数据
         viewModel.getBannerList() //获取轮播图列表数据
+
+        val internetAvailable = context?.isInternetAvailable()
+        Log.d(TAG, "initData:: internetAvailable=${internetAvailable}")
+        when (internetAvailable) {
+            true -> {
+                //getArticles()
+            }
+            false -> {
+                Log.e(TAG, "initData:: 网络不可用 ")
+                //加载没有网络的界面
+            }
+        }
+        getArticles()
+
+        initListener()
+    }
+
+    private fun getArticles() {
         lifecycleScope.launch(Dispatchers.IO) {
-            val internetAvailable = context?.isInternetAvailable()
-            Log.d(TAG, "initData:: internetAvailable=${internetAvailable}")
-            when (internetAvailable) {
-                true -> {
-                    //获取文章列表分页数据
-                    viewModel.getArticles().collectLatest { it ->
-                        withContext(Dispatchers.Main) {
-                            Log.d(TAG, "initData:: submitData ~~~")
-                            mArticleAdapter.submitData(it)
-                        }
-                    }
-                }
-                false -> {
-                    Log.e(TAG, "initData:: 网络不可用 ")
-                    //加载没有网络的界面
+            //获取文章列表分页数据
+            viewModel.getArticles().collectLatest { it ->
+                withContext(Dispatchers.Main) {
+                    Log.d(TAG, "getArticles:: submitData ~~~")
+                    mArticleAdapter.submitData(it)
                 }
             }
         }
-
-        initListener()
     }
 
     private fun initListener() {
@@ -203,12 +209,15 @@ class HomeFragment : BaseVMFragment<FragmentHomeBinding>() {
             mArticleAdapter.setBannerList(it)
         })
         mBinding.swipeRefresh.setOnRefreshListener {
+            viewModel.getHotKeys() //获取热词列表数据
+            viewModel.getBannerList() //获取轮播图列表数据
             mArticleAdapter.refresh()
         }
 
         //因为刷新前也会调用LoadState.NotLoading，所以用一个外部变量判断是否是刷新后
         var hasRefreshing = false
         mArticleAdapter.addLoadStateListener {
+            Log.d(TAG, "startObserver:: LoadStateListener,refresh:${it.refresh}")
             //判断是刷新状态
             when (it.refresh) {
 //                加载中 (加载数据时候回调)

@@ -1,5 +1,6 @@
 package com.bbq.home.repo
 
+import android.util.Log
 import com.bbq.base.rository.BaseRepository
 import com.bbq.base.rository.StateLiveData
 import com.bbq.home.api.HomeApi
@@ -8,6 +9,7 @@ import com.bbq.home.bean.ArticleTag
 import com.bbq.home.bean.BannerBean
 import com.bbq.home.bean.HotKeyBean
 import com.bbq.net.model.BasePagingResult
+import com.bbq.net.model.BaseResult
 import com.bbq.net.model.ResultState
 
 /**
@@ -38,25 +40,63 @@ class HomeRepo(private val homeApi: HomeApi) : BaseRepository() {
      * @return
      */
     suspend fun getArticleList(page: Int): ResultState<BasePagingResult<MutableList<ArticleBean>>> {
+        var ex: java.lang.Exception? = null
         //如果page==0的话，不仅要获取文章还有获取置顶的
         return if (page == 0) {
-            val topResult = homeApi.articleTop()
-            topResult.data?.forEach {
+            Log.d(TAG, "getArticleList:: page:${page}")
+            var topResult: BaseResult<MutableList<ArticleBean>>? = null
+            try {
+                topResult = homeApi.articleTop()
+                Log.d(TAG, "getArticleList:: 1, page:${page}")
+            } catch (e: Exception) {
+                e.printStackTrace()
+                ex = e
+                Log.e(TAG, "getArticleList: ${e.message}")
+            }
+            topResult?.data?.forEach {
                 it.tags?.add(ArticleTag("置顶"))
                 it.page = -1
             }
-            val articleResult = homeApi.getHomeList(page)
-            articleResult.data?.datas?.forEach {
+            Log.d(TAG, "getArticleList:: 2, topResult:${topResult}")
+
+            var articleResult: BaseResult<BasePagingResult<MutableList<ArticleBean>>>? = null
+            try {
+                articleResult = homeApi.getHomeList(page)
+            } catch (e: Exception) {
+                e.printStackTrace()
+                ex = e
+                Log.e(TAG, "getArticleList:: xx,${e.message}")
+            }
+
+            Log.d(TAG, "getArticleList:: 3, articleResult:${articleResult}")
+            articleResult?.data?.datas?.forEach {
                 it.page = page
             }
-            articleResult.data?.datas?.addAll(0, topResult.data!!)
-            callRequest { handleResponse(articleResult) }
+            articleResult?.data?.datas?.addAll(0, topResult?.data!!)
+            Log.d(TAG, "getArticleList:: 4, articleResult:${articleResult}")
+            /*if (articleResult != null) {
+                callRequest { handleResponse(articleResult!!) }
+            } else {
+                callRequest { throw ex!! }
+            }*/
+            articleResult?.let {
+                callRequest { handleResponse(articleResult!!) }
+            } ?: let { callRequest { throw ex!! } }
+
         } else {
-            val articleResult = homeApi.getHomeList(page)
-            articleResult.data?.datas?.forEach {
+            var articleResult: BaseResult<BasePagingResult<MutableList<ArticleBean>>>? = null
+            try {
+                articleResult = homeApi.getHomeList(page)
+            } catch (e: Exception) {
+                ex = e
+                Log.d(TAG, "getArticleList:: 5,${e.message}")
+            }
+            articleResult?.data?.datas?.forEach {
                 it.page = page
             }
-            callRequest { handleResponse(articleResult) }
+
+            articleResult?.let { callRequest { handleResponse(articleResult) } }
+                ?: callRequest { throw ex!! }
         }
     }
 

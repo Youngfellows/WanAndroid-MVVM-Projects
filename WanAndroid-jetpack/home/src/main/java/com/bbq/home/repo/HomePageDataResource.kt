@@ -31,8 +31,11 @@ class HomePageDataResource(val repo: HomeRepo, val database: HomeDatabase) :
         val currentPage = params.key ?: 0
         Log.d(TAG, "load:: currentPage:${currentPage}")
         //从repo中获取数据，repo不管是本地的还是网络的
-        when (val response = repo.getArticleList(currentPage)) {
+        val response = repo.getArticleList(currentPage)
+        Log.d(TAG, "load:: response=$response")
+        when (response) {
             is ResultState.Success -> {
+                Log.d(TAG, "load:: Success")
                 //当前页码 小于 总页码 页面加1
                 var nextPage = if (currentPage < response.data!!.pageCount) {
                     currentPage + 1
@@ -53,6 +56,7 @@ class HomePageDataResource(val repo: HomeRepo, val database: HomeDatabase) :
                 )
             }
             is ResultState.Error -> {
+                Log.d(TAG, "load:: Error")
                 //从数据库中取
 //                return LoadResult.Error(response.exception)
                 //异步获取
@@ -80,6 +84,7 @@ class HomePageDataResource(val repo: HomeRepo, val database: HomeDatabase) :
                 }
             }
             else -> {
+                Log.d(TAG, "load:: Error2")
                 //理论上不会走到这里的
                 return LoadResult.Error(Exception())
             }
