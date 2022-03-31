@@ -12,11 +12,26 @@ import com.bbq.navigation.viewmodel.NavTabVM
 import com.bbq.net.model.DataStatus
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
+/**
+ * 体系TAB页面
+ */
 class SystemTabFragment : BaseVMFragment<NavFragmentSystemTabBinding>() {
+
+    /**
+     * 导航页关联被观察数据的ViewModel
+     */
     private val viewModel: NavTabVM by viewModel()
+
+    /**
+     * 体系列表数据
+     */
     private val mDataList by lazy {
         mutableListOf<TreeBean>()
     }
+
+    /**
+     * 体系列表适配器
+     */
     private val mTreeTabAdapter by lazy {
         TreeTabAdapter(mDataList)
     }

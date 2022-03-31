@@ -9,10 +9,22 @@ import com.bbq.navigation.ui.SystemListActivity
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseDataBindingHolder
 
+/**
+ * 体系列表适配器
+ * @constructor
+ * TODO
+ *
+ * @param list 体系列表数据集
+ */
 class TreeTabAdapter(list: MutableList<TreeBean>) : BaseQuickAdapter<TreeBean,
         BaseDataBindingHolder<NavItemTreeBinding>>(
     R.layout.nav_item_tree, list
 ) {
+    /**
+     * 绑定数据
+     * @param holder 视图
+     * @param item 数据
+     */
     override fun convert(holder: BaseDataBindingHolder<NavItemTreeBinding>, item: TreeBean) {
         holder.dataBinding?.name?.text = item.name
         holder.dataBinding?.fbl?.removeAllViews()

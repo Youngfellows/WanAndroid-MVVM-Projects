@@ -14,12 +14,25 @@ import com.bbq.navigation.viewmodel.SystemListVM
 import com.google.android.material.tabs.TabLayoutMediator
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
+/**
+ * 体系轮播列表页
+ */
 class SystemListActivity : BaseVMActivity<NavActivitySystemListBinding>() {
+
     private val viewModel: SystemListVM by viewModel()
+
     private val mTreeBean: TreeBean by lazy {
         intent.getParcelableExtra("key_bean")!!
     }
+
+    /**
+     * Fragment列表
+     */
     private val mFragmentList = mutableListOf<Fragment>()
+
+    /**
+     * tab列表
+     */
     private val mTabList = mutableListOf<String>()
 
     override fun initView(savedInstanceState: Bundle?) {

@@ -27,13 +27,23 @@ class NavTabVM(application: Application, val navRepo: NavRepo) : BaseViewModel(a
      */
     val mLeftList = StateLiveData<List<NavTabBean>>()
 
+    /**
+     * 获取左边导航列表数据
+     */
     fun getNavList() {
         viewModelScope.launch {
             navRepo.getNavList(mLeftList)
         }
     }
 
+    /**
+     * 被观察数据-体系列表数据
+     */
     val mTreeList = StateLiveData<List<TreeBean>>()
+
+    /**
+     * 获取体系列表数据
+     */
     fun getTreeList() {
         viewModelScope.launch {
             navRepo.getTreeList(mTreeList)
@@ -42,6 +52,7 @@ class NavTabVM(application: Application, val navRepo: NavRepo) : BaseViewModel(a
 
 
     val mWeChatList = StateLiveData<List<PublicBean>>()
+
     fun getWeChatList() {
         viewModelScope.launch {
             navRepo.weChatList(mWeChatList)
@@ -56,6 +67,7 @@ class NavTabVM(application: Application, val navRepo: NavRepo) : BaseViewModel(a
     }
 
     val mProjectList = StateLiveData<BasePagingResult<List<ArticleBean>>>()
+
     fun getProjectList(page: Int) {
         viewModelScope.launch {
             navRepo.projectList(page, mProjectList)
@@ -63,6 +75,7 @@ class NavTabVM(application: Application, val navRepo: NavRepo) : BaseViewModel(a
     }
 
     val mProjectLeft = StateLiveData<List<PublicBean>>()
+
     fun getProjectLeft() {
         viewModelScope.launch {
             navRepo.projectLeftList(mProjectLeft)
@@ -70,6 +83,7 @@ class NavTabVM(application: Application, val navRepo: NavRepo) : BaseViewModel(a
     }
 
     val mProjectDetailList = StateLiveData<BasePagingResult<List<ArticleBean>>>()
+
     fun getProjectDetail(page: Int, id: Int) {
         viewModelScope.launch {
             navRepo.projectDetailList(id, page, mProjectDetailList)

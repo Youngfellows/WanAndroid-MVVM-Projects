@@ -11,8 +11,21 @@ import com.bbq.navigation.repo.NavRepo
 import com.bbq.net.model.BasePagingResult
 import kotlinx.coroutines.launch
 
+/**
+ * 体系文章分页列表ViewModel
+ * @property repo API接口
+ * @constructor
+ * TODO
+ *
+ * @param application
+ */
 class SystemListVM(application: Application, val repo: NavRepo) : BaseViewModel(application) {
+
     val mIsFinish = MutableLiveData(false)
+
+    /**
+     * 标题栏 被观察数据
+     */
     val mTitleVM = TitleViewModel(
         leftAction = {
             mIsFinish.postValue(true)
